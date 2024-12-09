@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analysis Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; text-align: center; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .output { margin-top: 20px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Analysis Tool</h1>
+        <form action="/analyze" method="post">
+            <textarea name="text" placeholder="Enter your text here..." required></textarea>
+            <input type="hidden" name="responses" value="{{ responses }}">
+            <button type="submit">Analyze</button>
+        </form>
+
+        <!-- Display the results dynamically -->
+        {% if responses %}
+        <div class="output">
+            <h3>Previous Analyses:</h3>
+            <ul>
+                {% for response in responses %}
+                <li>
+                    <strong>Input:</strong> {{ response.text }}<br>
+                    <strong>Entities:</strong> {{ response.entities }}<br>
+                    <strong>Sentiment:</strong> {{ response.sentiment }}<br>
+                    <strong>Intent:</strong> {{ response.intent }}<br>
+                    <strong>Message:</strong> {{ response.message }}
+                </li>
+                <hr>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
